@@ -48,16 +48,30 @@ class Quiz {
         return this.currentQuestionIndex < this.questions.length ? false : true
     }
 
-    filterQuestionsByDifficulty(difficulty){
+    // filterQuestionsByDifficulty(difficulty){
+    //     if(difficulty > 0 && difficulty < 4){
+    //         let tempQuestionsByDifficulty = [];
+    //         for(let i = 0; i < this.questions.length; i++){
+    //             if(this.questions[i].difficulty === difficulty){
+    //                 tempQuestionsByDifficulty.push(this.questions[i])
+    //             }
+    //         }   
+    //         this.questions = tempQuestionsByDifficulty;
+    //     }
+    // }
+
+
+    // filterQuestionsByDifficulty(difficulty){
+    //     return this.questions.sort((q1, q2) => {
+    //         return q1.difficulty - q2.difficulty;
+    //     })
+    // }
+
+    filterQuestionsByDifficulty(difficulty) {
         if(difficulty > 0 && difficulty < 4){
-            let tempQuestionsByDifficulty = [];
-            for(let i = 0; i < this.questions.length; i++){
-                if(this.questions[i].difficulty === difficulty){
-                    tempQuestionsByDifficulty.push(this.questions[i])
-                }
-            }   
-            this.questions = tempQuestionsByDifficulty;
+            this.questions = this.questions.filter(question => question.difficulty === difficulty);
         }
+        return this.questions;
     }
 
     // averageDifficulty(){
@@ -76,3 +90,5 @@ class Quiz {
     }
     
 }
+
+console.log(new Quiz().filterQuestionsByDifficulty(1));
