@@ -60,12 +60,19 @@ class Quiz {
         }
     }
 
+    // averageDifficulty(){
+    //     let sum = 0
+    //     this.questions.forEach(function(question){
+    //         sum += question.difficulty;
+    //     });
+    //     return sum / this.questions.length;
+    // }
+
     averageDifficulty(){
-        let sum = 0
-        this.questions.forEach(function(question){
-            sum += question.difficulty;
-        });
-        return sum / this.questions.length;
+        const totalDif = this.questions.reduce(function(sum, currentQuestion){
+            return sum + currentQuestion.difficulty;
+        }, 0);
+        return totalDif / this.questions.length;
     }
     
 }
