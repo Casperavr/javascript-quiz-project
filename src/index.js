@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /************  TIMER  ************/
 
   let timer;
-
+  startTimer()
 
   /************  EVENT LISTENERS  ************/
 
@@ -217,17 +217,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   function restartQuiz() {
-    quiz.currentQuestionIndex = 0;
+    quiz.currentQuestionIndex = 0;      //reset to first question and clear score from previous quiz
     quiz.correctAnswers = 0;
+    quiz.timeRemaining = 120;
+    quiz.timeLimit = 120;
 
-    quizView.style.display = "block";
-    endView.style.display = "none";
+    quizView.style.display = "block";     // reset endview and quizview displays
+    endView.style.display = "none";       // including progressbar
     progressBar.width = "0%";
     questionCount.innerText = "Question 1"
 
-      showQuestion();
+      showQuestion();                 // begin w/ first question again
+      startTimer();
+  }   
 
 
+  function startTimer() {
+  const intervalID = setInterval(() => {
+
+    if(quiz.timeRemaining === 0){
+      clearInterval(intervalID);
+      return showResults();
+    }
+    if(quiz.hasEnded()){
+      clearInterval(intervalID);
+    }
+
+    const minutesRemaining = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+
+    const secondsRemaining = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+
+    const timeRemainingContainer = document.getElementById("timeRemaining");
+    timeRemainingContainer.innerText = `${minutesRemaining}:${secondsRemaining}`
+
+    quiz.timeRemaining -= 1;
+
+
+    
+  }, 1000);
 
   }
 
